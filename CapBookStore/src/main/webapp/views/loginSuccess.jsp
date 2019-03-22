@@ -21,5 +21,11 @@
 		<b><button type="submit" value="logout" onclick="alert('You Have Successfully Logged Out')">Log Out</b>
 		</form:form >
 		</div>
+		
+		<div align="right">
+		<form:form action="allSettings" method="get">
+		<b><button type="submit" value="setting">Settings</b>
+		</form:form >
+		</div>
 </body>
 </html>

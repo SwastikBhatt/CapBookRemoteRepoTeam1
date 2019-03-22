@@ -23,47 +23,55 @@
 		<h1>Registration</h1>
 	</div>
 <body>
+<div align="center" class="error">
+		${errorMessage}
+	</div>
 	<div align="center">
 		<h2>Enter user details</h2>
 		<table>
 			<form:form action="registerSuccess" method="post" modelAttribute="account">
 				<tr>
 					<td>Employee Id</td>
-					<td><input type="number" name="employeeId"></td>
+					<td><input type="number" name="employeeId" required></td>
 				</tr>
 				<tr>
 					<td>emailId</td>
-					<td><input type="text" name="emailId"></td>
+					<td><input type="text" name="emailId" required></td>
 				</tr>
 				<tr>
 					<td>password</td>
-					<td><input type="password" name="password"></td>
+					<td><input type="password" name="password" required></td>
 				</tr>
 				<tr>
 					<td>firstName</td>
-					<td><input type="text" name="firstName"></td>
+					<td><input type="text" name="firstName" required></td>
 				</tr>
 				<tr>
 					<td>lastName</td>
-					<td><input type="text" name="lastName"></td>
+					<td><input type="text" name="lastName" required></td>
 				</tr>
 				<tr>
 					<td>dateOfBirth</td>
 					<td><input type="date" name="dateOfBirth" min="1900-01-01"
-						max="2019-12-31"></td>
+						max="2019-12-31" required></td>
 				</tr>
 				<tr>
-					<td>gender</td>
-					<td><input type="text" name="gender"></td>
+					<td><label for="gender">Gender</label>
+					<span style="color: red !important; display: inline; float: none;">*</span>
+
+					<select id="gender" name="gender" class="form-control">
+						<option value="M">Male</option>
+						<option value="F">Female</option>
+						<option value="X">Others</option>
+						</select>
+						</td>
+						
 				</tr>
-				<!--  <tr>
-					<td>Image</td>
-					<td><input type="file" name="fileUpload" accept="image/*"></td>
-				</tr>-->
+				<!--
 				<tr>
                     <td>Pick file #2:</td>
                     <td><input type="file" name="data" size="50" /></td>
-                </tr>
+                </tr>-->
 				<tr>
 					<td><label for="country">Country</label>
 					<span style="color: red !important; display: inline; float: none;">*</span>
@@ -343,6 +351,22 @@
 						<option value="Zimbabwe">Zimbabwe</option>
 					</select>
 					</td>
+				</tr>
+				<tr>
+					<td><label for="securityQuestion">Security Question</label>
+					<span style="color: red !important; display: inline; float: none;">*</span>
+
+					<select id="securityQuestion" name="securityQuestion" class="form-control">
+						<option value="What Is the name of your pet ?">What Is the name of your pet ?</option>
+						<option value="What is your childhood name?">What is your childhood name?</option>
+						<option value="What is the name of your first car?">What is the name of your first car?</option>
+						<option value="What is your dream destination?">What is your dream destination?</option>
+					</select>
+					</td>
+				</tr>	
+				<tr>
+					<td>Security Answer</td>
+					<td><input type="text" name="securityAnswer" required></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="submit" /></td>

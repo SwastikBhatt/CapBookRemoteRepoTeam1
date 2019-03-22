@@ -31,13 +31,13 @@
 		<table>
 			<form:form action="homepageURI" method="post" modelAttribute="account">
 				<tr>
-					<td>Email Id</td>
-					<td><input type="text" name="emailId"></td>
-					<td><form:errors path="emailId" cssClass="error" /></td>
+					<td>Type Old Password</td>
+					<td><input type="password" name="password1"></td>
+					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
 
 				<tr>
-					<td>password</td>
+					<td>Type New Password</td>
 					<td><input type="password" name="password"></td>
 					<td><form:errors path="password" cssClass="error" /></td>
 				</tr>
@@ -49,12 +49,6 @@
 				
 				<td>
 				New User?<a href="registrationPage">SignUp</a>
-				</td>
-				</tr>
-				<tr>
-				
-				<td>
-				Forgot Password?<a href="resetPasswordPage">Click Here To Change</a>
 				</td>
 				</tr>
 			</form:form>

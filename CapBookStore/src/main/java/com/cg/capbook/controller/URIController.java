@@ -22,14 +22,14 @@ public class URIController {
 		return "registrationPage";
 	}
 	
-	@RequestMapping("/depositAcc")
-	public String depositAccountPage() {
-		return "depositAccountPage";
+	@RequestMapping("/allSettings")
+	public String allSettingsPage() {
+		return "allSettingsPage";
 	}
 	
-	@RequestMapping("/withdrawAcc")
-	public String withdrawAccountPage() {
-		return "withdrawAccountPage";
+	@RequestMapping("/resetPasswordPage")
+	public String resetPasswordPage() {
+		return "resetPasswordPage";
 	}
 	
 	@RequestMapping("/transferAcc")
