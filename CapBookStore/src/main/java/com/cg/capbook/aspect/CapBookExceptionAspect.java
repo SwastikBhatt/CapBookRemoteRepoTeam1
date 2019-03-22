@@ -6,8 +6,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
+import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 @ControllerAdvice
 public class CapBookExceptionAspect {
@@ -26,5 +28,13 @@ public class CapBookExceptionAspect {
 	@ExceptionHandler(CheckSecurityQandA.class)
 	public ModelAndView handelCheckSecurityQandA(Exception e) {
 		return new ModelAndView("resetPasswordPage","errorMessage",e.getMessage());
+	}
+	@ExceptionHandler(ChangePasswordException.class)
+	public ModelAndView handelChangePasswordException(Exception e) {
+		return new ModelAndView("allSettingsPage","errorMessage",e.getMessage());
+	}
+	@ExceptionHandler(SecurityProfileQandAException.class)
+	public ModelAndView handelSecurityProfileQandAException(Exception e) {
+		return new ModelAndView("allSettingsPage","errorMessage",e.getMessage());
 	}
 }

@@ -9,8 +9,10 @@ import com.cg.capbook.beans.Account;
 import com.cg.capbook.daoservices.AccountDAO;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
+import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 @Component("capBookServices")
 public class CapBookServicesImpl implements CapBookServices {
@@ -67,15 +69,44 @@ public class CapBookServicesImpl implements CapBookServices {
 		return account;
 	}
 	@Override
+	public Account changePasswordInProfile(String emailId,String securityQuestion,String securityAnswer,String newPass) throws AccountNotFoundException,ChangePasswordException, SecurityProfileQandAException {
+		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
+			if(checkNewWithOldProfile(encryptPassword(newPass), account.getPassword())==false) {
+				if(securityQuestion.equals(account.getSecurityQuestion())) {
+				if(securityAnswer.equals(account.getSecurityAnswer())) {
+					account.setPassword(encryptPassword(newPass)); 
+					accountDAO.save(account);
+				}
+				else
+					throw new SecurityProfileQandAException("Incorrect Security Answer ");		
+			}
+			else
+				throw new SecurityProfileQandAException("Incorrect Security Question ");
+		}
+		return account;
+	}
+	@Override
 	public boolean checkNewPass(String newPass, String rNewPass) throws CheckPasswordException {
 		if(newPass.equals(rNewPass))
 			return true;
 		throw new CheckPasswordException("Passwords don't match");
 	}
 	@Override
+	public boolean checkNewPassProfile(String newPass, String rNewPass) throws ChangePasswordException{
+		if(newPass.equals(rNewPass))
+			return true;
+		throw new ChangePasswordException("Passwords don't match");
+	}
+	@Override
 	public boolean checkNewWithOld(String newPass, String oldPass) throws CheckPasswordException {
 		if(newPass.equals(oldPass))
 			throw new CheckPasswordException("New Password Is Same as Previous One");
+		return false;
+	}
+	@Override
+	public boolean checkNewWithOldProfile(String newPass, String oldPass) throws ChangePasswordException  {
+		if(newPass.equals(oldPass))
+			throw new ChangePasswordException("New Password Is Same as Previous One");
 		return false;
 	}
 }
