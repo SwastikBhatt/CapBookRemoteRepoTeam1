@@ -5,5 +5,4 @@ import com.cg.capbook.beans.Account;
 
 public interface AccountDAO extends JpaRepository<Account, String> {
 
-	// void saveFile(Account account);
 }
