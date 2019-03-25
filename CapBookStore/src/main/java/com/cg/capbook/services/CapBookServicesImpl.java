@@ -18,6 +18,7 @@ import com.cg.capbook.exceptions.SecurityProfileQandAException;
 public class CapBookServicesImpl implements CapBookServices {
 	@Autowired
 	AccountDAO accountDAO;
+	static String sessionEmailId;
 	@Override
 	public Account openAccount(Account account) throws  AccountExistingException {
 		
@@ -28,13 +29,13 @@ public class CapBookServicesImpl implements CapBookServices {
 		}
 		account.setPassword(encryptPassword(account.getPassword()));
 		return accountDAO.save(account);
-	
-	
 	}
 	@Override
 	public Account getAccount(String emailId, String password) throws AccountNotFoundException {
 
 		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
+		sessionEmailId=account.getEmailId();
+		System.out.println(sessionEmailId);
 		if (account.getPassword().equals(encryptPassword(password))) {
 			return account;
 		}
@@ -108,5 +109,19 @@ public class CapBookServicesImpl implements CapBookServices {
 		if(newPass.equals(oldPass))
 			throw new ChangePasswordException("New Password Is Same as Previous One");
 		return false;
+	}
+public Account updateProfile(Account profile) throws AccountNotFoundException {
+	System.out.println(sessionEmailId);	
+	Account profile1=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
+	System.out.println(profile1.getCountry());
+	if(!profile.getDesignation().isEmpty())
+		profile1.setDesignation(profile.getDesignation());
+	if(!profile.getRelationshipStatus().isEmpty())
+		profile1.setRelationshipStatus(profile.getRelationshipStatus());
+	if(!profile.getUserBio().isEmpty())
+		profile1.setUserBio(profile.getUserBio());
+	if(!profile.getCurrentCity().isEmpty())
+		profile1.setCurrentCity(profile.getCurrentCity());
+	return accountDAO.save(profile1);
 	}
 }

@@ -64,51 +64,44 @@
 			<form:form action="registerSuccess" method="post"
 				modelAttribute="account">
 				<tr>
-					<td>Employee Id
-                    <span
+					<td>Employee Id <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="number" name="employeeId" required></td>
 				</tr>
 				<tr>
-					<td>emailId
-                    <span
+					<td>emailId <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="text" name="emailId" required></td>
 				</tr>
 				<tr>
-					<td>Password
-                    <span
+					<td>Password <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                    <td><input type="password" id="password" name="password"
+					<td><input type="password" id="password" name="password"
 						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 						title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 						required></td>
 				</tr>
 				<tr>
-					<td>firstName
-                    <span
+					<td>firstName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="text" name="firstName" required></td>
 				</tr>
 				<tr>
-					<td>lastName
-                    <span
+					<td>lastName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="text" name="lastName" required></td>
 				</tr>
 				<tr>
-					<td>dateOfBirth
-                    <span
+					<td>dateOfBirth <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="date" name="dateOfBirth" min="1900-01-01"
 						max="2019-12-31" required></td>
 				</tr>
 				<tr>
-					<td><label for="gender">Gender</label>
-                    <span
+					<td><label for="gender">Gender</label> <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 
-						<td><select id="gender" name="gender" class="form-control">
+					<td><select id="gender" name="gender" class="form-control">
 							<option value="M">Male</option>
 							<option value="F">Female</option>
 							<option value="X">Others</option>
@@ -121,12 +114,9 @@
                     <td><input type="file" name="data" size="50" /></td>
                 </tr>-->
 				<tr>
-					<td><label for="country">Country</label>
-                    <span
+					<td><label for="country">Country</label> <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                    <td>
-
-						<select id="country" name="country" class="form-control">
+					<td><select id="country" name="country" class="form-control">
 							<option value="Afghanistan">Afghanistan</option>
 							<option value="Åland Islands">Åland Islands</option>
 							<option value="Albania">Albania</option>
@@ -407,12 +397,9 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td><label for="securityQuestion">Security Question</label>
-                    <span
+					<td><label for="securityQuestion">Security Question</label> <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                        <td> 
-
-						<select id="securityQuestion" name="securityQuestion"
+					<td><select id="securityQuestion" name="securityQuestion"
 						class="form-control">
 							<option value="What Is the name of your pet ?">What Is
 								the name of your pet ?</option>
@@ -425,8 +412,7 @@
 					</select></td>
 				</tr>
 				<tr>
-					<td>Security Answer
-                    <span
+					<td>Security Answer <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="text" name="securityAnswer" required></td>
 				</tr>

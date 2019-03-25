@@ -3,6 +3,7 @@ package com.cg.capbook.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,6 +49,19 @@ public class CapBookServicesController {
 		}
 		throw new CheckPasswordException("Passwords don't match"); 
 	}
+	
+//	@RequestMapping("/postingComment")
+//	public ModelAndView postingCommentInProfile(Account account) throws AccountNotFoundException, CheckPasswordException, ChangePasswordException, SecurityProfileQandAException {
+//		if(services.checkNewPassProfile(newPass, rNewPass)) {
+//			Account account = services.changePasswordInProfile(emailId, securityQuestion, securityAnswer,newPass);
+//			if(account!=null)
+//				return new ModelAndView("loginSuccess","account",account);
+//			else {
+//				return new ModelAndView("allSettingsPage");
+//			}
+//		}
+//		throw new ChangePasswordException("Passwords don't match"); 
+//	}
 	@RequestMapping("/changePasswordProfile")
 	public ModelAndView changePasswordProfile(@RequestParam String emailId,String securityQuestion,String securityAnswer,String newPass,String rNewPass) throws AccountNotFoundException, CheckPasswordException, ChangePasswordException, SecurityProfileQandAException {
 		if(services.checkNewPassProfile(newPass, rNewPass)) {
@@ -59,6 +73,13 @@ public class CapBookServicesController {
 			}
 		}
 		throw new ChangePasswordException("Passwords don't match"); 
+	}
+	@RequestMapping("/updateProfile")
+	public ModelAndView updateProfile(@ModelAttribute Account account) throws AccountNotFoundException  {
+		
+		Account account1=services.updateProfile(account);
+		return new ModelAndView("allSettingsPage","account1",account1);
+		
 	}
 
 }

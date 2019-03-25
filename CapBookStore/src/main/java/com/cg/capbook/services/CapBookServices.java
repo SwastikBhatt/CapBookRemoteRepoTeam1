@@ -20,4 +20,5 @@ public interface CapBookServices {
 	Account changePasswordInProfile(String emailId, String securityQuestion, String securityAnswer, String newPass)
 			throws AccountNotFoundException, ChangePasswordException, SecurityProfileQandAException;
 	public boolean checkNewWithOldProfile(String newPass, String oldPass) throws ChangePasswordException;
+	public Account updateProfile(Account profile) throws AccountNotFoundException ;
 }
