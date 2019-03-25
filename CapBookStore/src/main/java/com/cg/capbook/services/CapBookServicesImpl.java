@@ -119,7 +119,16 @@ public class CapBookServicesImpl implements CapBookServices {
 	}
 	public Account updateProfile(Account profile) throws AccountNotFoundException {	
 		Account profile1=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
-		
+		if(!profile.getFirstName().isEmpty())
+			profile1.setFirstName(profile.getFirstName());
+		if(!profile.getLastName().isEmpty())
+			profile1.setLastName(profile.getLastName());
+		if(!(profile.getGender()=='\u0000'))
+			profile1.setGender(profile.getGender());
+		if(!profile.getDateOfBirth().isEmpty())
+			profile1.setDateOfBirth(profile.getDateOfBirth());
+		if(!profile.getCountry().isEmpty())
+			profile1.setCountry(profile.getCountry());
 		if(!profile.getDesignation().isEmpty())
 			profile1.setDesignation(profile.getDesignation());
 		if(!profile.getRelationshipStatus().isEmpty())
@@ -128,8 +137,7 @@ public class CapBookServicesImpl implements CapBookServices {
 			profile1.setUserBio(profile.getUserBio());
 		if(!profile.getCurrentCity().isEmpty())
 			profile1.setCurrentCity(profile.getCurrentCity());
-		if(!profile.getFirstName().isEmpty())
-			profile1.setFirstName(profile.getFirstName());
+		
 		return accountDAO.save(profile1);
 	}
 	@Override

@@ -116,12 +116,12 @@
 			<tr>
 					<td>firstName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="firstName" required></td>
+					<td><input type="text" name="firstName" ></td>
 				</tr>
 				<tr>
 					<td>lastName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="lastName" required></td>
+					<td><input type="text" name="lastName" ></td>
 				</tr>
 				<tr>
 					<td>dateOfBirth <span
