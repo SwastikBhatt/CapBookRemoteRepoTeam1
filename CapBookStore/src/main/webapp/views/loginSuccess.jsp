@@ -15,21 +15,13 @@
 </div>
 <body>
 <script type="text/javascript">
-function blobToFile(theBlob, fileName){
-    //A Blob() is almost a File() - it's just missing the two properties below which we will add
-    theBlob.lastModifiedDate = new Date();
-    theBlob.name = fileName;
-    return theBlob;
-}
-var myBlob = new Blob();
-new File([blob], "uploaded_file.jpg", { type: "image/jpeg", lastModified: Date.now() })
-var myFile = blobToFile(myBlob, "C:\Users\Public\Pictures\Sample Pictures\Penguins.png");
+
 </script>
 			  <h2>${requestScope.account.firstName}</h2>
 			
 
 	<div align="right">
-		<form:form action="index" method="get">
+		<form:form action="logout" method="get">
 		<b><button type="submit" value="logout" onclick="alert('You Have Successfully Logged Out')">Log Out</b>
 		</form:form >
 		</div>

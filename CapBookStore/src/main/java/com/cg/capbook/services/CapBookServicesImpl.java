@@ -12,6 +12,7 @@ import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.LoggedOutException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 @Component("capBookServices")
@@ -19,9 +20,16 @@ public class CapBookServicesImpl implements CapBookServices {
 	@Autowired
 	AccountDAO accountDAO;
 	static String sessionEmailId;
+	public String getSessionEmailId() throws LoggedOutException
+	{
+//		System.out.println(sessionEmailId);
+//		if(sessionEmailId.equals(null)) 
+//			throw new LoggedOutException("You have already logged out");
+		return sessionEmailId;
+	}
 	@Override
 	public Account openAccount(Account account) throws  AccountExistingException {
-		
+
 		List<Account> accountList=accountDAO.findAll();
 		for (Account account2 : accountList) {
 			if(account2.getEmailId().equals(account.getEmailId()))
@@ -35,7 +43,6 @@ public class CapBookServicesImpl implements CapBookServices {
 
 		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
 		sessionEmailId=account.getEmailId();
-		System.out.println(sessionEmailId);
 		if (account.getPassword().equals(encryptPassword(password))) {
 			return account;
 		}
@@ -55,8 +62,8 @@ public class CapBookServicesImpl implements CapBookServices {
 	@Override
 	public Account changePassword(String emailId,String securityQuestion,String securityAnswer,String newPass) throws AccountNotFoundException, CheckSecurityQandA, CheckPasswordException {
 		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
-			if(checkNewWithOld(encryptPassword(newPass), account.getPassword())==false) {
-				if(securityQuestion.equals(account.getSecurityQuestion())) {
+		if(checkNewWithOld(encryptPassword(newPass), account.getPassword())==false) {
+			if(securityQuestion.equals(account.getSecurityQuestion())) {
 				if(securityAnswer.equals(account.getSecurityAnswer())) {
 					account.setPassword(encryptPassword(newPass)); 
 					accountDAO.save(account);
@@ -72,8 +79,8 @@ public class CapBookServicesImpl implements CapBookServices {
 	@Override
 	public Account changePasswordInProfile(String emailId,String securityQuestion,String securityAnswer,String newPass) throws AccountNotFoundException,ChangePasswordException, SecurityProfileQandAException {
 		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
-			if(checkNewWithOldProfile(encryptPassword(newPass), account.getPassword())==false) {
-				if(securityQuestion.equals(account.getSecurityQuestion())) {
+		if(checkNewWithOldProfile(encryptPassword(newPass), account.getPassword())==false) {
+			if(securityQuestion.equals(account.getSecurityQuestion())) {
 				if(securityAnswer.equals(account.getSecurityAnswer())) {
 					account.setPassword(encryptPassword(newPass)); 
 					accountDAO.save(account);
@@ -110,18 +117,25 @@ public class CapBookServicesImpl implements CapBookServices {
 			throw new ChangePasswordException("New Password Is Same as Previous One");
 		return false;
 	}
-public Account updateProfile(Account profile) throws AccountNotFoundException {
-	System.out.println(sessionEmailId);	
-	Account profile1=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
-	System.out.println(profile1.getCountry());
-	if(!profile.getDesignation().isEmpty())
-		profile1.setDesignation(profile.getDesignation());
-	if(!profile.getRelationshipStatus().isEmpty())
-		profile1.setRelationshipStatus(profile.getRelationshipStatus());
-	if(!profile.getUserBio().isEmpty())
-		profile1.setUserBio(profile.getUserBio());
-	if(!profile.getCurrentCity().isEmpty())
-		profile1.setCurrentCity(profile.getCurrentCity());
-	return accountDAO.save(profile1);
+	public Account updateProfile(Account profile) throws AccountNotFoundException {	
+		Account profile1=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
+		
+		if(!profile.getDesignation().isEmpty())
+			profile1.setDesignation(profile.getDesignation());
+		if(!profile.getRelationshipStatus().isEmpty())
+			profile1.setRelationshipStatus(profile.getRelationshipStatus());
+		if(!profile.getUserBio().isEmpty())
+			profile1.setUserBio(profile.getUserBio());
+		if(!profile.getCurrentCity().isEmpty())
+			profile1.setCurrentCity(profile.getCurrentCity());
+		if(!profile.getFirstName().isEmpty())
+			profile1.setFirstName(profile.getFirstName());
+		return accountDAO.save(profile1);
+	}
+	@Override
+	public Account logout() {
+		sessionEmailId=null;
+		System.out.println("Logged Out");
+		return null;
 	}
 }

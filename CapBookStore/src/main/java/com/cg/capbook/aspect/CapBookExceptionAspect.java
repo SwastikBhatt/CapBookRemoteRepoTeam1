@@ -9,6 +9,7 @@ import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.LoggedOutException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 @ControllerAdvice
@@ -36,5 +37,9 @@ public class CapBookExceptionAspect {
 	@ExceptionHandler(SecurityProfileQandAException.class)
 	public ModelAndView handelSecurityProfileQandAException(Exception e) {
 		return new ModelAndView("allSettingsPage","errorMessage",e.getMessage());
+	}
+	@ExceptionHandler(LoggedOutException.class)
+	public ModelAndView handelLoggedOutException(Exception e) {
+		return new ModelAndView("login","errorMessage",e.getMessage());
 	}
 }

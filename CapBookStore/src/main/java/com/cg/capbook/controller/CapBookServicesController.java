@@ -14,6 +14,7 @@ import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.LoggedOutException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 import com.cg.capbook.services.CapBookServices;
 
@@ -75,11 +76,19 @@ public class CapBookServicesController {
 		throw new ChangePasswordException("Passwords don't match"); 
 	}
 	@RequestMapping("/updateProfile")
-	public ModelAndView updateProfile(@ModelAttribute Account account) throws AccountNotFoundException  {
-		
+	public ModelAndView updateProfile(@ModelAttribute Account account) throws AccountNotFoundException, LoggedOutException  {
+//		if(services.getSessionEmailId().isEmpty())
+//			throw new AccountNotFoundException("You have already logged out");
+	//	services.getSessionEmailId();
 		Account account1=services.updateProfile(account);
 		return new ModelAndView("allSettingsPage","account1",account1);
 		
 	}
-
+	
+	@RequestMapping("/logout")
+	public ModelAndView userLogout() throws AccountNotFoundException  {
+		services.logout();
+		return new ModelAndView("login","account",null);
+		
+	}
 }

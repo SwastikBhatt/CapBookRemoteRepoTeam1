@@ -6,6 +6,7 @@ import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
+import com.cg.capbook.exceptions.LoggedOutException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 public interface CapBookServices {
@@ -21,4 +22,6 @@ public interface CapBookServices {
 			throws AccountNotFoundException, ChangePasswordException, SecurityProfileQandAException;
 	public boolean checkNewWithOldProfile(String newPass, String oldPass) throws ChangePasswordException;
 	public Account updateProfile(Account profile) throws AccountNotFoundException ;
+	Account logout();
+	public String getSessionEmailId() throws LoggedOutException;
 }
