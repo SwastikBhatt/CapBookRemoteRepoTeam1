@@ -1,53 +1,82 @@
 package com.cg.capbook.beans;
 
-import java.util.HashMap;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 @Entity
 public class Post {
 	@Id
-	private String profilePost;
-	private HashMap<String, String> comments;
-	private int likes,dislikes;
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	private int postId;
+	private String emailId;
+	private String postContent;
+	private String imageContent;
+	private int noOfLikes,noOfDislikes;
 	@ManyToOne
 	private Account account;
-	public Post() {
+	public Post() {}
+	
+	public Post(int postId, String emailId, String postContent, String imageContent, int noOfLikes, int noOfDislikes,
+			Account account) {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Post(String profilePost, HashMap<String, String> comments, int likes, int dislikes, Account account) {
-		super();
-		this.profilePost = profilePost;
-		this.comments = comments;
-		this.likes = likes;
-		this.dislikes = dislikes;
+		this.postId = postId;
+		this.emailId = emailId;
+		this.postContent = postContent;
+		this.imageContent = imageContent;
+		this.noOfLikes = noOfLikes;
+		this.noOfDislikes = noOfDislikes;
 		this.account = account;
 	}
-	public String getProfilePost() {
-		return profilePost;
+
+	public Post(int postId, String emailId, String postContent, int noOfLikes, int noOfDislikes, Account account) {
+		super();
+		this.postId = postId;
+		this.emailId = emailId;
+		this.postContent = postContent;
+		this.noOfLikes = noOfLikes;
+		this.noOfDislikes = noOfDislikes;
+		this.account = account;
 	}
-	public void setProfilePost(String profilePost) {
-		this.profilePost = profilePost;
+
+	public String getEmailId() {
+		return emailId;
 	}
-	public HashMap<String, String> getComments() {
-		return comments;
+
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
 	}
-	public void setComments(HashMap<String, String> comments) {
-		this.comments = comments;
+
+	public String getPostContent() {
+		return postContent;
 	}
-	public int getLikes() {
-		return likes;
+
+	public void setPostContent(String postContent) {
+		this.postContent = postContent;
 	}
-	public void setLikes(int likes) {
-		this.likes = likes;
+
+	public int getNoOfLikes() {
+		return noOfLikes;
 	}
-	public int getDislikes() {
-		return dislikes;
+
+	public void setNoOfLikes(int noOfLikes) {
+		this.noOfLikes = noOfLikes;
 	}
-	public void setDislikes(int dislikes) {
-		this.dislikes = dislikes;
+
+	public int getNoOfDislikes() {
+		return noOfDislikes;
+	}
+
+	public void setNoOfDislikes(int noOfDislikes) {
+		this.noOfDislikes = noOfDislikes;
+	}
+
+	public int getPostId() {
+		return postId;
+	}
+	public void setPostId(int postId) {
+		this.postId = postId;
 	}
 	public Account getAccount() {
 		return account;
@@ -55,11 +84,20 @@ public class Post {
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+
+	public String getImageContent() {
+		return imageContent;
+	}
+
+	public void setImageContent(String imageContent) {
+		this.imageContent = imageContent;
+	}
+
 	@Override
 	public String toString() {
-		return "Post [profilePost=" + profilePost + ", comments=" + comments + ", likes=" + likes + ", dislikes="
-				+ dislikes + ", account=" + account + "]";
+		return "Post [postId=" + postId + ", emailId=" + emailId + ", postContent=" + postContent + ", imageContent="
+				+ imageContent + ", noOfLikes=" + noOfLikes + ", noOfDislikes=" + noOfDislikes + ", account=" + account
+				+ "]";
 	}
-	
-	
+
 }

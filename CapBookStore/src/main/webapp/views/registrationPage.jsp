@@ -108,11 +108,7 @@
 					</select></td>
 
 				</tr>
-				<!--
-				<tr>
-                    <td>Pick file #2:</td>
-                    <td><input type="file" name="data" size="50" /></td>
-                </tr>-->
+				
 				<tr>
 					<td><label for="country">Country</label> <span
 						style="color: red !important; display: inline; float: none;">*</span></td>

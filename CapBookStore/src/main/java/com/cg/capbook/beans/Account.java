@@ -1,13 +1,10 @@
 package com.cg.capbook.beans;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MapKey;
@@ -23,24 +20,22 @@ public class Account {
 	private String dateOfBirth;
 	private char gender;
 	private String country;
-	@Column(columnDefinition="BLOB")
-	private byte[] data;
+//	@Column(columnDefinition="BLOB")
+	private String data;
 	private String securityQuestion;
 	private String securityAnswer;
-	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
-	@MapKey
-	private Map<String,Post> post=new HashMap<String, Post>();
+	
+	  @OneToMany(mappedBy="account",cascade=CascadeType.ALL)
+	  @MapKey 
+	  private Map<String,Post> posts=new HashMap<String, Post>();
+	 
 	private String userBio;
 	private String currentCity;
 	private String designation;
 	private String relationshipStatus;
-	public Map<String, Post> getPost() {
-		return post;
-	}
-
-	public void setPost(Map<String, Post> post) {
-		this.post = post;
-	}
+//	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
+//	@MapKey
+//	private List<String> posts;
 
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
 			String dateOfBirth, char gender, String country, String securityQuestion, String securityAnswer) {
@@ -57,23 +52,7 @@ public class Account {
 		this.securityAnswer = securityAnswer;
 	}
 
-	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
-			String dateOfBirth, char gender, String country, byte[] data, String securityQuestion,
-			String securityAnswer, Map<String, Post> post) {
-		super();
-		this.emailId = emailId;
-		this.employeeId = employeeId;
-		this.password = password;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.dateOfBirth = dateOfBirth;
-		this.gender = gender;
-		this.country = country;
-		this.data = data;
-		this.securityQuestion = securityQuestion;
-		this.securityAnswer = securityAnswer;
-		this.post = post;
-	}
+	
 
 	/*
 	 *
@@ -87,7 +66,7 @@ public class Account {
 	public Account() {}
 	
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
-			String dateOfBirth, char gender, String country, byte[] data, String securityQuestion,
+			String dateOfBirth, char gender, String country, String data, String securityQuestion,
 			String securityAnswer) {
 		super();
 		this.emailId = emailId;
@@ -103,10 +82,10 @@ public class Account {
 		this.securityAnswer = securityAnswer;
 	}
 
+	
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
-			String dateOfBirth, char gender, String country, byte[] data, String securityQuestion,
-			String securityAnswer, Map<String, Post> post, String userBio, String currentCity, String designation,
-			String relationshipStatus) {
+			String dateOfBirth, char gender, String country, String data, String securityQuestion,
+			String securityAnswer, Map<String, Post> posts) {
 		super();
 		this.emailId = emailId;
 		this.employeeId = employeeId;
@@ -119,11 +98,30 @@ public class Account {
 		this.data = data;
 		this.securityQuestion = securityQuestion;
 		this.securityAnswer = securityAnswer;
-		this.post = post;
+		this.posts = posts;
+	}
+
+	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
+			String dateOfBirth, char gender, String country, String data, String securityQuestion,
+			String securityAnswer, String userBio, String currentCity, String designation, String relationshipStatus,
+			Map<String, Post> posts) {
+		super();
+		this.emailId = emailId;
+		this.employeeId = employeeId;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
+		this.country = country;
+		this.data = data;
+		this.securityQuestion = securityQuestion;
+		this.securityAnswer = securityAnswer;
 		this.userBio = userBio;
 		this.currentCity = currentCity;
 		this.designation = designation;
 		this.relationshipStatus = relationshipStatus;
+		this.posts = posts;
 	}
 
 	public String getEmailId() {
@@ -190,11 +188,11 @@ public class Account {
 		this.country = country;
 	}
 
-	public byte[] getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 
@@ -246,13 +244,33 @@ public class Account {
 		this.relationshipStatus = relationshipStatus;
 	}
 
+
+
+	public Map<String, Post> getPost() {
+		return posts;
+	}
+
+
+
+	public void setPost(Map<String, Post> post) {
+		this.posts = post;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Account [emailId=" + emailId + ", employeeId=" + employeeId + ", password=" + password + ", firstName="
 				+ firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
-				+ ", country=" + country + ", data=" + Arrays.toString(data) + ", securityQuestion=" + securityQuestion
-				+ ", securityAnswer=" + securityAnswer + ", post=" + post + ", userBio=" + userBio + ", currentCity="
-				+ currentCity + ", designation=" + designation + ", relationshipStatus=" + relationshipStatus + "]";
+				+ ", country=" + country + ", data=" + data + ", securityQuestion=" + securityQuestion
+				+ ", securityAnswer=" + securityAnswer + ", userBio=" + userBio + ", currentCity=" + currentCity
+				+ ", designation=" + designation + ", relationshipStatus=" + relationshipStatus + "]";
 	}
+
+
+
+	
+
+	
 	
 }

@@ -12,6 +12,12 @@ import com.cg.capbook.beans.Account;
 public class URIController {
 	Account account;
 	
+	@ModelAttribute
+	public Account getAccount() {
+		account=new Account();
+		return account;
+	}
+	
 	@RequestMapping(value= {"/","index"})
 	public String getLoginPage(){
 		return "login";
@@ -31,29 +37,5 @@ public class URIController {
 	public String resetPasswordPage() {
 		return "resetPasswordPage";
 	}
-	
-	@RequestMapping("/transferAcc")
-	public String transferAccountPage() {
-		return "transferAccountPage";
-	}
-	
-	@RequestMapping("/checkDet")
-	public String checkDetailsPage() {
-		return "checkDetailsPage";
-	}
-	
-	@RequestMapping("/getAllAcc")
-	public String getAllAccountPage() {
-		return "getAllAccountPage";
-	}
-	
-	@RequestMapping("/getAllTran")
-	public String getAllTransactionPage() {
-		return "getAllTransactionPage";
-	}
-	@ModelAttribute
-	public Account getAccount() {
-		account=new Account();
-		return account;
-	}
+
 }

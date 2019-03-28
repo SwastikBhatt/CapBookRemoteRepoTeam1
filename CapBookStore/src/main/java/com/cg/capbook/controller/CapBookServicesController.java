@@ -1,14 +1,22 @@
 package com.cg.capbook.controller;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.Post;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
@@ -24,7 +32,7 @@ public class CapBookServicesController {
 	CapBookServices services;
 
 	@RequestMapping("/registerSuccess")
-	public ModelAndView openAccount(Account account) throws AccountExistingException{
+	public ModelAndView openAccount(Account account) throws AccountExistingException, AccountNotFoundException{
 		account = services.openAccount(account);
 		return new ModelAndView("registrationSuccessPage","account",account);
 	}
@@ -37,6 +45,11 @@ public class CapBookServicesController {
 			return new ModelAndView("loginSuccess","account",account);
 		else
 			return new ModelAndView("login","account",account);
+	}
+	@RequestMapping("/myProfile")
+	public ModelAndView myProfile() throws AccountNotFoundException, LoggedOutException {
+		Account account = services.getAccount(services.getSessionEmailId());
+			return new ModelAndView("myProfilePage","account",account);
 	}
 
 	@RequestMapping("/changePassword")
@@ -51,18 +64,21 @@ public class CapBookServicesController {
 		throw new CheckPasswordException("Passwords don't match"); 
 	}
 	
-//	@RequestMapping("/postingComment")
-//	public ModelAndView postingCommentInProfile(Account account) throws AccountNotFoundException, CheckPasswordException, ChangePasswordException, SecurityProfileQandAException {
-//		if(services.checkNewPassProfile(newPass, rNewPass)) {
-//			Account account = services.changePasswordInProfile(emailId, securityQuestion, securityAnswer,newPass);
-//			if(account!=null)
-//				return new ModelAndView("loginSuccess","account",account);
-//			else {
-//				return new ModelAndView("allSettingsPage");
-//			}
-//		}
-//		throw new ChangePasswordException("Passwords don't match"); 
-//	}
+	@RequestMapping("/createPost")
+	public ModelAndView createPost(@RequestParam String postContent) throws AccountNotFoundException, CheckPasswordException, ChangePasswordException, SecurityProfileQandAException, LoggedOutException {
+		Account account= services.getAccount(services.getSessionEmailId());
+		Post post= new Post();
+		post.setAccount(account);
+		post.setPostContent(postContent);
+		post.setNoOfLikes(0);
+		post.setNoOfDislikes(0);
+		post=services.createPost(post);
+		Map<String, Post> accountPost=account.getPost();
+		accountPost.put(services.getSessionEmailId(),post);
+		account.setPost(accountPost);
+		System.out.println(account);
+		return new ModelAndView("myProfilePage","account",account);
+	}
 	@RequestMapping("/changePasswordProfile")
 	public ModelAndView changePasswordProfile(@RequestParam String emailId,String securityQuestion,String securityAnswer,String newPass,String rNewPass) throws AccountNotFoundException, CheckPasswordException, ChangePasswordException, SecurityProfileQandAException {
 		if(services.checkNewPassProfile(newPass, rNewPass)) {
@@ -76,19 +92,39 @@ public class CapBookServicesController {
 		throw new ChangePasswordException("Passwords don't match"); 
 	}
 	@RequestMapping("/updateProfile")
-	public ModelAndView updateProfile(@ModelAttribute Account account) throws AccountNotFoundException, LoggedOutException  {
-//		if(services.getSessionEmailId().isEmpty())
+	public ModelAndView updateProfile(@ModelAttribute Account account/* ,@RequestParam MultipartFile file */) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
+		System.out.println("Haa");
+		//		if(services.getSessionEmailId().isEmpty())
 //			throw new AccountNotFoundException("You have already logged out");
 	//	services.getSessionEmailId();
 		Account account1=services.updateProfile(account);
+
 		return new ModelAndView("allSettingsPage","account1",account1);
-		
 	}
-	
 	@RequestMapping("/logout")
 	public ModelAndView userLogout() throws AccountNotFoundException  {
 		services.logout();
 		return new ModelAndView("login","account",null);
 		
 	}
+	@RequestMapping("/updateProfilePic")
+	public ModelAndView updateProfilePic(@RequestParam MultipartFile file ) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
+		Account account1= services.getAccount(services.getSessionEmailId());
+		account1=services.updateProfilePicture(file);
+		return new ModelAndView("allSettingsPage","account1",account1);
+	}
+	
+	@RequestMapping("/createImagePost")
+	public ModelAndView createImagePost(@RequestParam MultipartFile file ) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
+		System.out.println("Haa");
+		Account account1= services.getAccount(services.getSessionEmailId());
+		account1=services.createImagePost(file);
+		return new ModelAndView("myProfilePage","account1",account1);
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -8,7 +8,6 @@
 	color: red;
 	font-weight: bold;
 }
-
 </style>
 <title>Account Settings</title>
 <meta charset="utf-8">
@@ -24,110 +23,133 @@
 	<div class="jumbotron text-center">
 		<h1>Account Settings</h1>
 	</div>
-	<div align="center" class="error">
-		${errorMessage}
+	<div align="center"><b>Change Profile Picture<b><br> </div>
+	<script type="text/javascript">
+function clicked() {
+    alert('Profile Picture Updated');
+}
+</script>
+	<div align="center">
+		<table>
+			<form action="updateProfilePic" method="post"
+				enctype="multipart/form-data">
+			<tr>
+				<td>Pick file For Profile Picture:</td><br>
+				<td><input type="file" name="file" size="50"
+					value="Choose your file" /></td>
+			</tr>
+			<tr>
+				<td> <input type="submit" value="Save Photo" onclick="clicked();"/></td><br>
+			</tr>
+			</form>
+		</table>
 	</div>
+	<div align="center" class="error">${errorMessage}</div>
 	<div align="center">
 
 		<table>
-        	<tr>
-        <td><b>Password Settings<b><br><br></td> </tr>
-			<form:form action="changePasswordProfile" method="post" modelAttribute="account">
+			<tr>
+				<td><b>Password Settings<b><br> <br></td>
+			</tr>
+			<form:form action="changePasswordProfile" method="post"
+				modelAttribute="account">
 				<tr>
 					<td>Email Id</td>
 					<td><input type="text" name="emailId" required></td>
 				</tr>
 				<tr>
-					<td>Type Old Password
-                    <span
+					<td>Type Old Password <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                    <td><input type="password" id="password" name="password"></td>
+					<td><input type="password" id="password" name="password"></td>
 				</tr>
 
 				<tr>
-					<td>Type New Password
-					<span
+					<td>Type New Password <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                    <td><input type="password" id="newPass" name="newPass"
+					<td><input type="password" id="newPass" name="newPass"
 						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 						title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 						required></td>
 				</tr>
-				
+
 				<tr>
-					<td> Confirm New Password
-					<span
+					<td>Confirm New Password <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-                    <td><input type="password" id="rNewPass" name="rNewPass"
+					<td><input type="password" id="rNewPass" name="rNewPass"
 						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 						title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 						required></td>
 				</tr>
 				<tr>
-					<td><label for="securityQuestion">Security Question</label>
-					<span style="color: red !important; display: inline; float: none;">*</span></td>
+					<td><label for="securityQuestion">Security Question</label> <span
+						style="color: red !important; display: inline; float: none;">*</span></td>
 
-					<td><select id="securityQuestion" name="securityQuestion" class="form-control">
-						<option value="What Is the name of your pet ?">What Is the name of your pet ?</option>
-						<option value="What is your childhood name?">What is your childhood name?</option>
-						<option value="What is the name of your first car?">What is the name of your first car?</option>
-						<option value="What is your dream destination?">What is your dream destination?</option>
-					</select>
-					</td>
-				</tr>	
+					<td><select id="securityQuestion" name="securityQuestion"
+						class="form-control">
+							<option value="What Is the name of your pet ?">What Is
+								the name of your pet ?</option>
+							<option value="What is your childhood name?">What is
+								your childhood name?</option>
+							<option value="What is the name of your first car?">What
+								is the name of your first car?</option>
+							<option value="What is your dream destination?">What is
+								your dream destination?</option>
+					</select></td>
+				</tr>
 				<tr>
 					<td>Security Answer</td>
 					<td><input type="text" name="securityAnswer" required></td>
 				</tr>
 				<tr>
-					<td><br><br><input type="submit" value="Change Password" /></td>
+					<td><br> <br> <input type="submit"
+						value="Change Password" /></td>
 				</tr>
-		</form:form>
-		<tr>
-        <td><br><br><br><br><br><br><b>Profile Settings<b><br><br><br></td> </tr>
-		<form:form action="updateProfile" method="post" modelAttribute="profile">
-		<tr>
-					<td>Designation
-                    <span
-						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="designation" ></td>
-				</tr>
-				<tr>
-					<td>User Bio
-                    <span
-						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td> <textarea name="userBio" rows="10" cols="30" title="Enter Bio Here."></textarea>
-  <br></td>
-				</tr>
-				<tr>
-					<td>currentCity
-                    <span
-						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="currentCity" ></td>
-				</tr>
-				
-				<tr>
-					<td>relationshipStatus
-                    <span
-						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="relationshipStatus" ></td>
-				</tr>		
-		<tr>
+			</form:form>
 			<tr>
+				<td><br> <br> <br> <br> <br> <br>
+					<b>Profile Settings<b><br> <br> <br></td>
+			</tr>
+			<form:form action="updateProfile" method="post"
+				modelAttribute="profile" enctype="multipart/form-data">
+
+				<tr>
+					<td>Designation <span
+						style="color: red !important; display: inline; float: none;">*</span></td>
+					<td><input type="text" name="designation"></td>
+				</tr>
+				<tr>
+					<td>User Bio <span
+						style="color: red !important; display: inline; float: none;">*</span></td>
+					<td><textarea name="userBio" rows="10" cols="30"
+							title="Enter Bio Here."></textarea> <br></td>
+				</tr>
+				<tr>
+					<td>currentCity <span
+						style="color: red !important; display: inline; float: none;">*</span></td>
+					<td><input type="text" name="currentCity"></td>
+				</tr>
+
+				<tr>
+					<td>relationshipStatus <span
+						style="color: red !important; display: inline; float: none;">*</span></td>
+					<td><input type="text" name="relationshipStatus"></td>
+				</tr>
+				<tr>
+				<tr>
 					<td>firstName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="firstName" ></td>
+					<td><input type="text" name="firstName"></td>
 				</tr>
 				<tr>
 					<td>lastName <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
-					<td><input type="text" name="lastName" ></td>
+					<td><input type="text" name="lastName"></td>
 				</tr>
 				<tr>
 					<td>dateOfBirth <span
 						style="color: red !important; display: inline; float: none;">*</span></td>
 					<td><input type="date" name="dateOfBirth" min="1900-01-01"
-						max="2019-12-31" ></td>
+						max="2019-12-31"></td>
 				</tr>
 				<tr>
 					<td><label for="gender">Gender</label> <span
@@ -427,15 +449,16 @@
 							<option value="Zambia">Zambia</option>
 							<option value="Zimbabwe">Zimbabwe</option>
 					</select></td>
+
 				</tr>
-					<td><br><br><input type="submit" value="Save Profile" /></td>
+				<td><br> <br> <input type="submit"
+					value="Save Profile" /></td>
 				</tr>
-		
-		</form:form>
+
+			</form:form>
 		</table>
 	</div>
-	
-	
+
 	<script>
 		var myInput = document.getElementById("password");
 		var myInput1 = document.getElementById("newPass");

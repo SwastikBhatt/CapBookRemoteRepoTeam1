@@ -1,6 +1,11 @@
 package com.cg.capbook.services;
 
+import java.io.IOException;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.Post;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
@@ -11,7 +16,7 @@ import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 public interface CapBookServices {
 
-	Account openAccount(Account account) throws AccountExistingException;
+	Account openAccount(Account account) throws AccountExistingException, AccountNotFoundException;
 	public String encryptPassword(String password);
 	Account getAccount(String emailId,String password) throws AccountNotFoundException;
 	Account changePassword(String emailId,String securityQuestion,String securityAnswer, String newPass) throws AccountNotFoundException, CheckSecurityQandA, CheckPasswordException;
@@ -24,4 +29,10 @@ public interface CapBookServices {
 	public Account updateProfile(Account profile) throws AccountNotFoundException ;
 	Account logout();
 	public String getSessionEmailId() throws LoggedOutException;
+	Account getAccount(String emailId) throws AccountNotFoundException;
+	Post createPost(Post post);
+	Post updatePostLikes(Post post);
+	Post updatePostDislikes(Post post);
+	public Account updateProfilePicture(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException;
+	public Account createImagePost(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException;
 }

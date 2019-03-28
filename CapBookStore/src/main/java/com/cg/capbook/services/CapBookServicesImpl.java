@@ -1,12 +1,20 @@
 package com.cg.capbook.services;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.Post;
 import com.cg.capbook.daoservices.AccountDAO;
+import com.cg.capbook.daoservices.PostDAO;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
 import com.cg.capbook.exceptions.ChangePasswordException;
@@ -19,7 +27,11 @@ import com.cg.capbook.exceptions.SecurityProfileQandAException;
 public class CapBookServicesImpl implements CapBookServices {
 	@Autowired
 	AccountDAO accountDAO;
+	@Autowired
+	PostDAO postDAO;
+	static String getLocation="C:\\Users\\ADM-IG-HWDLAB1D\\git\\CapBookLocalRepoTeam1\\CapBookStore\\src\\main\\resources\\static\\images\\";
 	static String sessionEmailId;
+	static String sessionPassword;
 	public String getSessionEmailId() throws LoggedOutException
 	{
 //		System.out.println(sessionEmailId);
@@ -35,8 +47,10 @@ public class CapBookServicesImpl implements CapBookServices {
 			if(account2.getEmailId().equals(account.getEmailId()))
 				throw new AccountExistingException("Account Already Exists");
 		}
+		//sessionEmailId=account.getEmailId();
 		account.setPassword(encryptPassword(account.getPassword()));
-		return accountDAO.save(account);
+		 return accountDAO.save(account);
+		 
 	}
 	@Override
 	public Account getAccount(String emailId, String password) throws AccountNotFoundException {
@@ -49,6 +63,12 @@ public class CapBookServicesImpl implements CapBookServices {
 		else {
 			throw new AccountNotFoundException("Incorrect Password");
 		}
+	}
+	@Override
+	public Account getAccount(String emailId) throws AccountNotFoundException {
+		Account account= accountDAO.findById(emailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
+		sessionEmailId=account.getEmailId();
+		return account;
 	}
 	public String encryptPassword(String password) {
 		StringBuffer newPassword= new StringBuffer();
@@ -146,4 +166,48 @@ public class CapBookServicesImpl implements CapBookServices {
 		System.out.println("Logged Out");
 		return null;
 	}
+	@Override
+	public Post createPost(Post post) {
+		post.setEmailId(sessionEmailId);
+		postDAO.save(post);
+		return post;
+	}
+	@Override
+	public Post updatePostLikes(Post post) {
+		Post oldPost=postDAO.findById(post.getPostId()).get();
+		post.setNoOfLikes(oldPost.getNoOfLikes()+1);
+		return postDAO.save(post);
+	}
+	@Override
+	public Post updatePostDislikes(Post post) {
+		Post oldPost=postDAO.findById(post.getPostId()).get();
+		post.setNoOfDislikes(oldPost.getNoOfDislikes()+1);
+		return postDAO.save(post);
+	}
+	public Account updateProfilePicture(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException {	
+		Account profile=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
+		Path path=Paths.get(getLocation+file.getOriginalFilename());
+		file.transferTo(path);
+		profile.setData("/images/"+file.getOriginalFilename());
+		return accountDAO.save(profile);
+	}
+	public Account createImagePost(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException {	
+		Account profile=accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException());
+		Path path=Paths.get(getLocation+file.getOriginalFilename());
+		file.transferTo(path);
+		Map<String, Post> postsProfile=profile.getPost();
+		System.out.println("haa");
+		Post post=new Post();
+		System.out.println("haa2");
+		post.setImageContent("/images/"+file.getOriginalFilename());
+		post.setPostContent("Has posted an image");
+		post.setEmailId(sessionEmailId);
+		post.setNoOfLikes(0);
+		post.setNoOfDislikes(0);
+		postsProfile.put(sessionEmailId,post);
+		profile.setPost(postsProfile);
+		postDAO.save(post);
+		return accountDAO.save(profile);
+	}
+	
 }
