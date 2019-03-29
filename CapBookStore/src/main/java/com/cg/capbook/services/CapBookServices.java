@@ -1,6 +1,7 @@
 package com.cg.capbook.services;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,4 +36,9 @@ public interface CapBookServices {
 	Post updatePostDislikes(Post post);
 	public Account updateProfilePicture(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException;
 	public Account createImagePost(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException;
+	public Account createAlbum(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException, LoggedOutException ;
+	public List<Account> searchAllUsersByName(String userName) throws AccountNotFoundException;
+	public List<Account> birthdayAll() throws AccountNotFoundException;
 }
+
+

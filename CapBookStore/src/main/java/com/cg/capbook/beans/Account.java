@@ -1,7 +1,6 @@
 package com.cg.capbook.beans;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
@@ -14,28 +13,32 @@ import javax.persistence.OneToMany;
 public class Account {
 	@Id
 	private String emailId;
-	private int employeeId;	
+	private int employeeId;
 	private String password;
-	private String firstName,lastName;
+	private String firstName, lastName;
 	private String dateOfBirth;
 	private char gender;
 	private String country;
-//	@Column(columnDefinition="BLOB")
+	//	@Column(columnDefinition="BLOB")
 	private String data;
 	private String securityQuestion;
 	private String securityAnswer;
-	
-	  @OneToMany(mappedBy="account",cascade=CascadeType.ALL)
-	  @MapKey 
-	  private Map<String,Post> posts=new HashMap<String, Post>();
-	 
+
+	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
+
+	@MapKey private Map<String,ImageAlbum> images=new HashMap<String,ImageAlbum>();
+
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+	@MapKey
+	private Map<String, Post> posts = new HashMap<String, Post>();
 	private String userBio;
 	private String currentCity;
 	private String designation;
 	private String relationshipStatus;
-//	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
-//	@MapKey
-//	private List<String> posts;
+
+	//	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
+	//	@MapKey
+	//	private List<String> posts;
 
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
 			String dateOfBirth, char gender, String country, String securityQuestion, String securityAnswer) {
@@ -52,8 +55,6 @@ public class Account {
 		this.securityAnswer = securityAnswer;
 	}
 
-	
-
 	/*
 	 *
 	 * 
@@ -63,8 +64,9 @@ public class Account {
 	 * 
 	 * private List<FriendRequest> friendRequests;
 	 */
-	public Account() {}
-	
+	public Account() {
+	}
+
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
 			String dateOfBirth, char gender, String country, String data, String securityQuestion,
 			String securityAnswer) {
@@ -82,7 +84,6 @@ public class Account {
 		this.securityAnswer = securityAnswer;
 	}
 
-	
 	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
 			String dateOfBirth, char gender, String country, String data, String securityQuestion,
 			String securityAnswer, Map<String, Post> posts) {
@@ -123,6 +124,45 @@ public class Account {
 		this.relationshipStatus = relationshipStatus;
 		this.posts = posts;
 	}
+
+	public Map<String, ImageAlbum> getImages() {
+		return images;
+	}
+
+
+
+	public void setImages(Map<String, ImageAlbum> images) {
+		this.images = images;
+	}
+
+
+
+	public Account(String emailId, int employeeId, String password, String
+			firstName, String lastName, String dateOfBirth, char gender, String country,
+			String data, String securityQuestion, String securityAnswer, Map<String,
+			ImageAlbum> images, Map<String, Post> posts, String userBio, String
+			currentCity, String designation, String relationshipStatus) { 
+		super();
+		this.emailId = emailId;
+		this.employeeId = employeeId;
+		this.password =password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.dateOfBirth = dateOfBirth; 
+		this.gender = gender; this.country = country;
+
+		this.data = data; 
+		this.securityQuestion = securityQuestion;
+
+		this.securityAnswer = securityAnswer; 
+		this.images = images; 
+		this.posts =posts; 
+		this.userBio = userBio; 
+		this.currentCity = currentCity;
+		this.designation = designation; 
+		this.relationshipStatus = relationshipStatus;
+	}
+
 
 	public String getEmailId() {
 		return emailId;
@@ -245,32 +285,21 @@ public class Account {
 	}
 
 
-
-	public Map<String, Post> getPost() {
-		return posts;
-	}
+	public Map<String, Post> getPost() { return posts; }
 
 
 
-	public void setPost(Map<String, Post> post) {
-		this.posts = post;
-	}
-
-
+	public void setPost(Map<String, Post> post) { this.posts = post; }
 
 	@Override
 	public String toString() {
 		return "Account [emailId=" + emailId + ", employeeId=" + employeeId + ", password=" + password + ", firstName="
 				+ firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
 				+ ", country=" + country + ", data=" + data + ", securityQuestion=" + securityQuestion
-				+ ", securityAnswer=" + securityAnswer + ", userBio=" + userBio + ", currentCity=" + currentCity
-				+ ", designation=" + designation + ", relationshipStatus=" + relationshipStatus + "]";
+				+ ", securityAnswer=" + securityAnswer + ", images=" + images + ", userBio=" + userBio
+				+ ", currentCity=" + currentCity + ", designation=" + designation + ", relationshipStatus="
+				+ relationshipStatus + "]";
 	}
 
 
-
-	
-
-	
-	
 }

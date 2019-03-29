@@ -3,7 +3,6 @@ package com.cg.capbook.services;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,8 +11,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.ImageAlbum;
 import com.cg.capbook.beans.Post;
 import com.cg.capbook.daoservices.AccountDAO;
+import com.cg.capbook.daoservices.ImageAlbumDAO;
 import com.cg.capbook.daoservices.PostDAO;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
@@ -27,6 +28,8 @@ import com.cg.capbook.exceptions.SecurityProfileQandAException;
 public class CapBookServicesImpl implements CapBookServices {
 	@Autowired
 	AccountDAO accountDAO;
+	@Autowired
+	ImageAlbumDAO imageAlbumDAO;
 	@Autowired
 	PostDAO postDAO;
 	static String getLocation="C:\\Users\\ADM-IG-HWDLAB1D\\git\\CapBookLocalRepoTeam1\\CapBookStore\\src\\main\\resources\\static\\images\\";
@@ -209,5 +212,59 @@ public class CapBookServicesImpl implements CapBookServices {
 		postDAO.save(post);
 		return accountDAO.save(profile);
 	}
+	public Account createAlbum(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException, LoggedOutException {	
+		Account profile= getAccount(sessionEmailId);
+		System.out.println(sessionEmailId);
+		Path path=Paths.get(getLocation+file.getOriginalFilename());
+		file.transferTo(path);
+		Map<String, ImageAlbum> imageAlbum=profile.getImages();
+		System.out.println("haa");
+		ImageAlbum album=new ImageAlbum();
+		album.setNoOfDislikes(0);
+		album.setNoOfLikes(0);
+		album.setAccount(profile);
+		album.setEmailId(sessionEmailId);
+		album.setImageContent("/images/"+file.getOriginalFilename());
+		imageAlbum.put(sessionEmailId, album);
+		imageAlbumDAO.save(album);
+		profile.setImages(imageAlbum);
+		return accountDAO.save(profile);
+	}
+	@Override
+	public List<Account> searchAllUsersByName(String userName) throws AccountNotFoundException{
+		List<Account> listUser=accountDAO.searchAllUserByName(userName.toLowerCase());
+//		for (Account profile : listUser) 
+//			profile.setData(null);
+		if(listUser.isEmpty())
+			throw new AccountNotFoundException("Account Not Found");
+		return listUser;
+	}
+	public Account incrementLike(Post post) throws AccountNotFoundException, IllegalStateException, IOException, LoggedOutException {
+		return null;	
+//		Account profile= getAccount(sessionEmailId);
+//		Map<String, Post> posts=profile.getPost();
+//		System.out.println("haa");
+//		
+//		imageAlbum.put(sessionEmailId, album);
+//		imageAlbumDAO.save(album);
+//		profile.setImages(imageAlbum);
+//		return accountDAO.save(profile);
+
+	}
+	
+	public List<Account> birthdayAll() throws AccountNotFoundException
+	{
+		List<Account> listUser=accountDAO.findAll();
+//		for (Account profile : listUser) 
+//			profile.setData(null);
+		if(listUser.isEmpty())
+			throw new AccountNotFoundException("Account Not Found");
+		return listUser;
+	}
+	
+	
+	
+	
+	
 	
 }

@@ -1,12 +1,10 @@
 package com.cg.capbook.controller;
 
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -75,7 +73,9 @@ public class CapBookServicesController {
 		post=services.createPost(post);
 		Map<String, Post> accountPost=account.getPost();
 		accountPost.put(services.getSessionEmailId(),post);
+		
 		account.setPost(accountPost);
+		
 		System.out.println(account);
 		return new ModelAndView("myProfilePage","account",account);
 	}
@@ -91,6 +91,12 @@ public class CapBookServicesController {
 		}
 		throw new ChangePasswordException("Passwords don't match"); 
 	}
+	@RequestMapping("/searchAccounts")
+	public ModelAndView searchAllUsersByNameInAccount(@RequestParam String firstName) throws AccountNotFoundException {
+		List<Account> accounts=services.searchAllUsersByName(firstName);
+		return new ModelAndView("searchResultPage","accounts",accounts);
+	}
+	
 	@RequestMapping("/updateProfile")
 	public ModelAndView updateProfile(@ModelAttribute Account account/* ,@RequestParam MultipartFile file */) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
 		System.out.println("Haa");
@@ -122,9 +128,25 @@ public class CapBookServicesController {
 		return new ModelAndView("myProfilePage","account1",account1);
 	}
 	
+	@RequestMapping("/updateAlbum")
+	public ModelAndView updateAlbum(@RequestParam MultipartFile file ) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
+		System.out.println("Haa");
+		Account account1= services.getAccount(services.getSessionEmailId());
+		account1=services.createAlbum(file);
+		return new ModelAndView("imageAlbum","account1",account1);
+	}
 	
 	
-	
-	
-	
+	@RequestMapping("/likeCounter")
+	public ModelAndView likeCounter(@RequestParam Post post) throws AccountNotFoundException, LoggedOutException, IllegalStateException, IOException  {
+		System.out.println("Haa");
+		Account account1= services.getAccount(services.getSessionEmailId());
+		//account1=services.(file);
+		return new ModelAndView("imageAlbum","account1",account1);
+	}
+	@RequestMapping("/searchBirthdays")
+	public ModelAndView searchBirthdaysAll() throws AccountNotFoundException {
+		List<Account> accounts=services.birthdayAll();
+		return new ModelAndView("myProfilePage","accounts",accounts);
+	}
 }

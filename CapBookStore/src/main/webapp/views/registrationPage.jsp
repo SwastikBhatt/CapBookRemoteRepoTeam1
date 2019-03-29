@@ -1,7 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <html>
 <head>
-<title>Register</title>
+<title>CapBook Register</title>
 <style>
 .error {
 	color: red;
@@ -108,7 +108,7 @@
 					</select></td>
 
 				</tr>
-				
+
 				<tr>
 					<td><label for="country">Country</label> <span
 						style="color: red !important; display: inline; float: none;">*</span></td>

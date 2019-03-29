@@ -37,5 +37,10 @@ public class URIController {
 	public String resetPasswordPage() {
 		return "resetPasswordPage";
 	}
+	
+	@RequestMapping("/album")
+	public String albumPage() {
+		return "imageAlbum";
+	}
 
 }

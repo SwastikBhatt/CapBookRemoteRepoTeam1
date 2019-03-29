@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="s" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -63,7 +62,7 @@ body {
 	}
 }
 </style>
-<title>Registration</title>
+<title>Search Results</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -74,44 +73,37 @@ body {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<div class="jumbotron text-center">
-		<h2>Welcome</h2>
-	</div>
-<body>
-	<script type="text/javascript">
-		
-	</script>
+<!-- <div class="jumbotron text-center"> -->
+	<div class="topnav" align="center">
+		<h2>Search Results</h2>
 
-	<div class="topnav">
 		<div class="search-container">
 			<form action="searchAccounts" method="get">
 				<input type="text" placeholder="Search.." name="firstName">
 				<button type="submit">Submit</button>
 			</form>
 		</div>
-		</div>	
-	<h2 align="center">
-		<p>${requestScope.account.firstName}</p>
-		<p>${requestScope.account.lastName}</p>
-	</h2>
-	<div align="right">
-		<form:form action="logout" method="get">
-			<b><button type="submit" value="logout"
-					onclick="alert('You Have Successfully Logged Out')">Log
-					Out</b>
-		</form:form>
 	</div>
-
-	<div align="left">
-		<form:form action="allSettings" method="get">
-			<b><button type="submit" value="setting">Settings</b>
-		</form:form>
+	<div align="center">
+		<table>
+			<tr>
+				<th>employeeId</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Email ID</th>
+			</tr>
+			<c:forEach var="associates" items="${accounts}">
+				<tr>
+					<th>${associates.employeeId}</th>
+					<th>${associates.firstName}</th>
+					<th>${associates.lastName}</th>
+					<th>${associates.emailId}</th>
+				</tr>
+			</c:forEach>
+		</table>
 	</div>
-
-	<div align="left">
-		<form:form action="myProfile" method="get">
-			<b><button type="submit" value="myProfile">My Profile</b>
-		</form:form>
-	</div>
+	
+	
+	
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-<title>Login</title>
+<title>CapBook Login</title>
 <style>
 .error {
 	color: red;

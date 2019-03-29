@@ -23,24 +23,29 @@
 	<div class="jumbotron text-center">
 		<h1>Account Settings</h1>
 	</div>
-	<div align="center"><b>Change Profile Picture<b><br> </div>
+	<div align="center">
+		<b>Change Profile Picture<b><br>
+	</div>
 	<script type="text/javascript">
-function clicked() {
-    alert('Profile Picture Updated');
-}
-</script>
+		function clicked() {
+			alert('Profile Picture Updated');
+		}
+	</script>
 	<div align="center">
 		<table>
 			<form action="updateProfilePic" method="post"
 				enctype="multipart/form-data">
-			<tr>
-				<td>Pick file For Profile Picture:</td><br>
-				<td><input type="file" name="file" size="50"
-					value="Choose your file" /></td>
-			</tr>
-			<tr>
-				<td> <input type="submit" value="Save Photo" onclick="clicked();"/></td><br>
-			</tr>
+				<tr>
+					<td>Pick file For Profile Picture:</td>
+					<br>
+					<td><input type="file" name="file" size="50"
+						value="Choose your file" /></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Save Photo"
+						onclick="clicked();" /></td>
+					<br>
+				</tr>
 			</form>
 		</table>
 	</div>
