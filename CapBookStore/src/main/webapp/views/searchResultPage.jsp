@@ -73,7 +73,7 @@ body {
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- <div class="jumbotron text-center"> -->
+	<!-- <div class="jumbotron text-center"> -->
 	<div class="topnav" align="center">
 		<h2>Search Results</h2>
 
@@ -91,6 +91,7 @@ body {
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Email ID</th>
+				<th>Profile Link</th>
 			</tr>
 			<c:forEach var="associates" items="${accounts}">
 				<tr>
@@ -98,12 +99,16 @@ body {
 					<th>${associates.firstName}</th>
 					<th>${associates.lastName}</th>
 					<th>${associates.emailId}</th>
+					<th><form:form action="myProfile" method="get">
+							<b><button type="submit" value="myProfile">My
+									Profile</b>
+						</form:form></th>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-	
-	
-	
+
+
+
 </body>
 </html>

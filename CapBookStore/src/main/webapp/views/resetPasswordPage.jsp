@@ -98,7 +98,7 @@ body, html {
   /* The image used */
    background-image: url( "bgimages/b.jpg"); 
   /* Full height */
-  height: 100%; 
+  height: 130%; 
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -169,7 +169,7 @@ body, html {
 				<input type="submit"value="SUBMIT">
 		</form>
 </div>
-	</div>
+	
 	<script>
 </script>
 	<!-- //form ends here -->
@@ -178,6 +178,7 @@ body, html {
 		<p>© 2019 Reset Password Form . All Rights Reserved |
 			<a href="http://capgemini.com/" target="_blank">Capgemini</a>
 		</p>
+	</div>
 	</div>
 	<!--//copyright-->
 </body>

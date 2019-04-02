@@ -3,6 +3,8 @@ package com.cg.capbook.services;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -255,16 +257,16 @@ public class CapBookServicesImpl implements CapBookServices {
 	public List<Account> birthdayAll() throws AccountNotFoundException
 	{
 		List<Account> listUser=accountDAO.findAll();
-//		for (Account profile : listUser) 
-//			profile.setData(null);
+		List<Account> listBirthday=new ArrayList();
+		LocalDate date=LocalDate.now();
+		String dateString=date.toString();
+		for (Account account : listUser) {
+			if(dateString.substring(5,7).equals(account.getDateOfBirth().substring(5,7))&& (Integer.parseInt(dateString.substring(9))<=Integer.parseInt(account.getDateOfBirth().substring(9))))
+				listBirthday.add(account);
+		}
 		if(listUser.isEmpty())
 			throw new AccountNotFoundException("Account Not Found");
-		return listUser;
+		return listBirthday;
 	}
-	
-	
-	
-	
-	
-	
+
 }

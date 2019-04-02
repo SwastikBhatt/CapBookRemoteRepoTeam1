@@ -237,7 +237,7 @@ body, html {
   /* The image used */
    background-image: url( "bgimages/b.jpg"); 
   /* Full height */
-  height: 165%; 
+  height: 185%; 
 
   /* Center and scale the image nicely */
   background-position: center;

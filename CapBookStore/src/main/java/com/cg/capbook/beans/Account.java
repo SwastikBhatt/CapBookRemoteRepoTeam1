@@ -5,10 +5,13 @@ import java.util.Map;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
 
 @Entity
 public class Account {
@@ -37,6 +40,12 @@ public class Account {
 	private String designation;
 	private String relationshipStatus;
 
+//	
+//	@ManyToMany(mappedBy = "accounts",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//	@JoinTable(name = "account_friend",joinColumns = { @JoinColumn(name="emailId")},inverseJoinColumns = { @JoinColumn(name = "friendId") })
+//	private Map<Integer, Friend> friends;
+	
+	
 	//	@OneToMany(mappedBy="account",cascade=CascadeType.ALL)
 	//	@MapKey
 	//	private List<String> posts;
@@ -164,6 +173,39 @@ public class Account {
 		this.relationshipStatus = relationshipStatus;
 	}
 
+//
+//	public Account(String emailId, int employeeId, String password, String firstName, String lastName,
+//			String dateOfBirth, char gender, String country, String data, String securityQuestion,
+//			String securityAnswer, Map<String, ImageAlbum> images, Map<String, Post> posts, String userBio,
+//			String currentCity, String designation, String relationshipStatus, Map<Integer, Friend> friends) {
+//		super();
+//		this.emailId = emailId;
+//		this.employeeId = employeeId;
+//		this.password = password;
+//		this.firstName = firstName;
+//		this.lastName = lastName;
+//		this.dateOfBirth = dateOfBirth;
+//		this.gender = gender;
+//		this.country = country;
+//		this.data = data;
+//		this.securityQuestion = securityQuestion;
+//		this.securityAnswer = securityAnswer;
+//		this.images = images;
+//		this.posts = posts;
+//		this.userBio = userBio;
+//		this.currentCity = currentCity;
+//		this.designation = designation;
+//		this.relationshipStatus = relationshipStatus;
+//		this.friends = friends;
+//	}
+
+//	public Map<Integer, Friend> getFriends() {
+//		return friends;
+//	}
+//
+//	public void setFriends(Map<Integer, Friend> friends) {
+//		this.friends = friends;
+//	}
 
 	public String getEmailId() {
 		return emailId;
@@ -291,16 +333,28 @@ public class Account {
 
 
 	public void setPost(Map<String, Post> post) { this.posts = post; }
+//
+//	@Override
+//	public String toString() {
+//		return "Account [emailId=" + emailId + ", employeeId=" + employeeId + ", password=" + password + ", firstName="
+//				+ firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
+//				+ ", country=" + country + ", data=" + data + ", securityQuestion=" + securityQuestion
+//				+ ", securityAnswer=" + securityAnswer + ", images=" + images + ", userBio="
+//				+ userBio + ", currentCity=" + currentCity + ", designation=" + designation + ", relationshipStatus="
+//				+ relationshipStatus + ", friends=" + friends + "]";
+//	}
 
-	@Override
-	public String toString() {
-		return "Account [emailId=" + emailId + ", employeeId=" + employeeId + ", password=" + password + ", firstName="
-				+ firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
-				+ ", country=" + country + ", data=" + data + ", securityQuestion=" + securityQuestion
-				+ ", securityAnswer=" + securityAnswer + ", images=" + images + ", userBio=" + userBio
-				+ ", currentCity=" + currentCity + ", designation=" + designation + ", relationshipStatus="
-				+ relationshipStatus + "]";
-	}
+	
+	  @Override public String toString() { return "Account [emailId=" + emailId +
+	  ", employeeId=" + employeeId + ", password=" + password + ", firstName=" +
+	  firstName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth +
+	  ", gender=" + gender + ", country=" + country + ", data=" + data +
+	  ", securityQuestion=" + securityQuestion + ", securityAnswer=" +
+	  securityAnswer + ", images=" + images + ", userBio=" + userBio +
+	  ", currentCity=" + currentCity + ", designation=" + designation +
+	  ", relationshipStatus=" + relationshipStatus + "]"; }
+	 
+	
 
 
 }

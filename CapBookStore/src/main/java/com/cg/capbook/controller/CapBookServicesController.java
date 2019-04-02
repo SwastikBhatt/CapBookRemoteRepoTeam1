@@ -147,6 +147,11 @@ public class CapBookServicesController {
 	@RequestMapping("/searchBirthdays")
 	public ModelAndView searchBirthdaysAll() throws AccountNotFoundException {
 		List<Account> accounts=services.birthdayAll();
-		return new ModelAndView("myProfilePage","accounts",accounts);
+		return new ModelAndView(/*"myProfilePage"*/"birthdayPage","accounts",accounts);
+	}
+	@RequestMapping("/viewProfile")
+	public ModelAndView viewProfile() throws AccountNotFoundException, LoggedOutException {
+		Account account = services.getAccount(services.getSessionEmailId());
+			return new ModelAndView("myProfilePage","account",account);
 	}
 }

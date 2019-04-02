@@ -291,7 +291,7 @@ function likeFunction() {
 
 <form action="searchBirthdays" method="get"
 		>
-				<p>Upcoming Birthdays:</p>
+				<%-- <p>Upcoming Birthdays:</p>
 				<table>
 			<tr>
 				<th>Date of Birth</th>
@@ -305,7 +305,7 @@ function likeFunction() {
 					<th>${associates.dateOfBirth}</th>
 				</tr>
 			</c:forEach>
-		</table>
+		</table> --%>
 		<b><button type="submit" value="Birthday">Show Birthday</b>
 		</form>		
 			</div>
