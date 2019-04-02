@@ -276,6 +276,12 @@ function likeFunction() {
 	<div class="w3-third" align="right">
 		<div class="w3-card w3-round w3-white w3-center">
 			<div class="w3-container">
+			<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
+			<p>
+				
+				<b>${account.userBio}</b>
+			</p>
+		</div>
 				<div>
 					<form:form action="allSettings" method="get">
 						<b><button type="submit" value="My Settings">My
@@ -341,11 +347,7 @@ function likeFunction() {
 		</div>
 		<br>
 
-		<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
-			<p>
-				<i class="fa fa-bug w3-xxlarge"></i>
-			</p>
-		</div>
+		
 	</div>
 	<!-- End Page Container -->
 	</div>

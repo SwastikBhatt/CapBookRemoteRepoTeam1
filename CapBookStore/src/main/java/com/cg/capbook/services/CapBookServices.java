@@ -39,6 +39,7 @@ public interface CapBookServices {
 	public Account createAlbum(MultipartFile file) throws AccountNotFoundException, IllegalStateException, IOException, LoggedOutException ;
 	public List<Account> searchAllUsersByName(String userName) throws AccountNotFoundException;
 	public List<Account> birthdayAll() throws AccountNotFoundException;
+	public Account uploadStatusPro(String userBio) throws AccountNotFoundException;
 }
 
 

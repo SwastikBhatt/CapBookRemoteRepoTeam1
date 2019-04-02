@@ -268,5 +268,11 @@ public class CapBookServicesImpl implements CapBookServices {
 			throw new AccountNotFoundException("Account Not Found");
 		return listBirthday;
 	}
+	@Override
+	public Account uploadStatusPro(String userBio) throws AccountNotFoundException {
+		Account account= accountDAO.findById(sessionEmailId).orElseThrow(()->new AccountNotFoundException("Invalid emailId"));
+		account.setUserBio(userBio);
+		return accountDAO.save(account);		
+	}
 
 }

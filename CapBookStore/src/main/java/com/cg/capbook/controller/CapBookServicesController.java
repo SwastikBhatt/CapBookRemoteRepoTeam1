@@ -154,4 +154,9 @@ public class CapBookServicesController {
 		Account account = services.getAccount(services.getSessionEmailId());
 			return new ModelAndView("myProfilePage","account",account);
 	}
+	@RequestMapping("/uploadStatus")
+	public ModelAndView uploadStatusProfile(@RequestParam String userBio) throws AccountNotFoundException {
+		Account account=services.uploadStatusPro(userBio);
+		return new ModelAndView("loginSuccess","account",account);
+	}
 }
