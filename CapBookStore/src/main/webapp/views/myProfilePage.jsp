@@ -1,20 +1,15 @@
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
-<title>CapBook</title>
+<title>W3.CSS Template</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel='stylesheet'
-	href='https://fonts.googleapis.com/css?family=Roboto'>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-html, body, h1, h2, h3, h4, h5, h6, i, p {
-	font-family: "Roboto", sans-serif
-}
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 
 button.like {
 	width: 30px;
@@ -55,19 +50,20 @@ button.learnmore {
 }
 </style>
 
-
-
-
 <body class="w3-light-grey">
-	<form:form action="createPost" name="postForm" method="post"
-		modelAttribute="account">
-		<!-- Page Container -->
-		<div class="w1-content w3-margin-top" style="max-width: 1400px;">
-			<div class="w3-row-padding">
-				<!-- Left Column -->
-				<div class="w3-third">
 
-					<div class="w3-white w3-text-grey w3-card-4">
+<!-- Page Container -->
+<form:form action="createPost" name="postForm" method="post"
+		modelAttribute="account">
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+  
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+    <div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
 							<img src="/resources${account.data}" style="width: 100%">
 							<div class="w3-display-bottomleft w3-container w3-text-black">
@@ -118,13 +114,24 @@ button.learnmore {
 						</div>
 					</div>
 					<br>
-					<!-- End Left Column -->
-				</div>
-				<!-- Right Column -->
-				<div class="w3-third">
-					<div class="w3-container w3-card w3-white w3-margin-bottom">
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    <div class="w3-container w3-card w3-white w3-margin-bottom">
+					
 						<h2 class="w3-text-grey w3-padding-16">
-							<i></i>My Profile
+						My Profile
+							<form:form action="loginSuccessPage" method="get">
+						<div align="right"> </form:form>
+							</div>
+							<div>
+					<form:form action="loginSuccessPage" method="get">
+						<b><button type="submit" value="My Homepage">My
+								Homepage</b>
+					</form:form>
+				</div>
 						</h2>
 						<div class="w3-container">
 							<h5 class="w3-opacity">
@@ -135,18 +142,7 @@ button.learnmore {
 </textarea>
 							<input type="button" value="Submit" onclick="submitForm()"
 								style="background-color: teal; color: white; padding: 5px; font-size: 16px; border: none; padding: 8px;">
-
-
-
-							<!-- <input type="submit" value="Submit" > -->
-							<!-- <input type="submit"  value="Submit"
-								style="background-color: teal; color: white; padding: 5px; font-size: 16px; border: none; padding: 8px;"> -->
-
-							<!-- <input type="submit" name= "imagepost" value="Upload Picture" onclick="clicked();"
-								style="background-color: teal; color: white; padding: 5px; font-size: 16px; border: none; padding: 8px;">  -->
-
-
-							<script type="text/javascript">
+     <script type="text/javascript">
 								function clicked() {
 									alert('Picture Posted');
 								}
@@ -267,13 +263,17 @@ function likeFunction() {
 	</h6>
 	<p>Eseche</p> -->
 	<hr>
-	</div>
-	</div>
-	<!-- End Right Column -->
+       </div>
+       </div>
+       
 
-	</div>
-	<!-- End Grid -->
-	<div class="w3-third" align="right">
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+ <%--  <div class="w3-onethird" align="right">
 		<div class="w3-card w3-round w3-white w3-center">
 			<div class="w3-container">
 			<div class="w3-card w3-round w3-white w3-padding-32 w3-center">
@@ -297,7 +297,7 @@ function likeFunction() {
 
 <form action="searchBirthdays" method="get"
 		>
-				<%-- <p>Upcoming Birthdays:</p>
+				<p>Upcoming Birthdays:</p>
 				<table>
 			<tr>
 				<th>Date of Birth</th>
@@ -311,7 +311,7 @@ function likeFunction() {
 					<th>${associates.dateOfBirth}</th>
 				</tr>
 			</c:forEach>
-		</table> --%>
+		</table>
 		<b><button type="submit" value="Birthday">Show Birthday</b>
 		</form>		
 			</div>
@@ -345,19 +345,21 @@ function likeFunction() {
 			<p>My Location</p>
 			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.4836138044857!2d73.69033491530888!3d18.597305271675772!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bb0f79aa922f%3A0x706d727fbeb8203!2sCapgemini!5e0!3m2!1sen!2sin!4v1553859147417!5m2!1sen!2sin" width="400" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
 		</div>
-		<br>
+		<br> --%>
+  
+  <!-- End Page Container -->
+</div>
 
-		
-	</div>
-	<!-- End Page Container -->
-	</div>
-	<%-- 	</form:form>
- --%>
+<footer class="w3-container w3-teal w3-center w3-margin-top">
+  <p>Find me on social media.</p>
+  <i class="fa fa-facebook-official w3-hover-opacity"></i>
+  <i class="fa fa-instagram w3-hover-opacity"></i>
+  <i class="fa fa-snapchat w3-hover-opacity"></i>
+  <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+  <i class="fa fa-twitter w3-hover-opacity"></i>
+  <i class="fa fa-linkedin w3-hover-opacity"></i>
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer>
 
-
-
-	<footer class="w3-container w3-teal w3-center w3-margin-top">
-		<p>Made By Team 1.</p>
-	</footer>
 </body>
 </html>

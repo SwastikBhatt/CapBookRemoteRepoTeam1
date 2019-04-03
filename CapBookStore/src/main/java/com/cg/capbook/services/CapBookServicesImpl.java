@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.Friend;
 import com.cg.capbook.beans.ImageAlbum;
 import com.cg.capbook.beans.Post;
 import com.cg.capbook.daoservices.AccountDAO;
@@ -24,6 +25,7 @@ import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
 import com.cg.capbook.exceptions.LoggedOutException;
+import com.cg.capbook.exceptions.NoFriendRequestReceivedException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 @Component("capBookServices")
@@ -274,5 +276,107 @@ public class CapBookServicesImpl implements CapBookServices {
 		account.setUserBio(userBio);
 		return accountDAO.save(account);		
 	}
-
+	@Override
+	public List<Post> viewAllPost(){
+		return postDAO.findAll();
+	}
+	
+	
+	
+	
+	
+	
+	@Override
+	public String sendRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException {
+		// TODO Auto-generated method stub
+		Account userAccountFrom = getAccount(emailIdFrom);
+		Account userAccountTo = getAccount(emailIdTo);
+		Friend friendTo = new Friend(userAccountTo.getFirstName(), emailIdTo, 1);
+		Friend friendFrom = new Friend(userAccountFrom.getFirstName(), emailIdFrom, 1);
+		
+		userAccountFrom.getPendingList().add(friendTo);
+		userAccountTo.getPendingList().add(friendFrom);
+		
+		/*if(acceptRequest(emailIdFrom, emailIdTo)) {
+			userAccountFrom.getFriendList().add(friendTo);
+			userAccountTo.getFriendList().add(friendFrom);
+		}
+		else if(rejectRequest(emailIdFrom, emailIdTo)) {
+			userAccountFrom.getFriendList().remove(friendTo);
+			userAccountTo.getFriendList().remove(friendFrom);
+		}*/
+		
+		accountDAO.save(userAccountFrom);
+		accountDAO.save(userAccountTo);
+		return "Friend request successfully sent";
+	}
+	@Override
+	public boolean acceptRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException {
+		// TODO Auto-generated method stub
+		Account userAccountFrom = getAccount(emailIdFrom);
+		Account userAccountTo = getAccount(emailIdTo);
+		Friend friendTo = new Friend(userAccountTo.getFirstName(), emailIdTo, 1);
+		Friend friendFrom = new Friend(userAccountFrom.getFirstName(), emailIdFrom, 1);
+		userAccountFrom.getPendingList().remove(friendTo);
+		userAccountTo.getPendingList().remove(friendFrom);
+		accountDAO.save(userAccountTo);
+		accountDAO.save(userAccountFrom);
+		
+		userAccountFrom.getFriendList().add(friendTo);
+		userAccountTo.getFriendList().add(friendFrom);	
+		accountDAO.save(userAccountTo);
+		accountDAO.save(userAccountFrom);
+		
+		return true;
+	}
+	@Override
+	public boolean rejectRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException{
+		// TODO Auto-generated method stub
+		Account userAccountFrom = getAccount(emailIdFrom);
+		Account userAccountTo = getAccount(emailIdTo);
+		Friend friendTo = new Friend(userAccountTo.getFirstName(), emailIdTo, 1);
+		Friend friendFrom = new Friend(userAccountFrom.getFirstName(), emailIdFrom, 1);
+		userAccountFrom.getPendingList().remove(friendTo);
+		userAccountTo.getPendingList().remove(friendFrom);
+		accountDAO.save(userAccountTo);
+		accountDAO.save(userAccountFrom);
+		return true;
+	}
+	@Override
+	public List<Friend> viewFriendList() throws AccountNotFoundException{
+		// TODO Auto-generated method stub
+		Account userAccount = getAccount(sessionEmailId);
+		
+		return userAccount.getFriendList();
+	}
+	@Override
+	public List<Friend> viewPendingRequestList() throws AccountNotFoundException,NoFriendRequestReceivedException {
+		// TODO Auto-generated method stub
+		Account userAccount = getAccount(sessionEmailId);
+		List<Friend> pendingRequests = userAccount.getPendingList();
+		if(pendingRequests.isEmpty())
+			throw new NoFriendRequestReceivedException("No friend request received till now");
+		return pendingRequests;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -1,3 +1,65 @@
+package com.cg.capbook.beans;
+
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class Friend {
+
+	private String name;
+	private String emailId;
+	private int approvalStatus;
+	public Friend() {
+		super();
+	}
+	public Friend(String name, String emailId) {
+		super();
+		this.name = name;
+		this.emailId = emailId;
+	}
+	
+	public Friend(String name, String emailId, int approvalStatus) {
+		super();
+		this.name = name;
+		this.emailId = emailId;
+		this.approvalStatus = approvalStatus;
+	}
+	
+	public int getApprovalStatus() {
+		return approvalStatus;
+	}
+	public void setApprovalStatus(int approvalStatus) {
+		this.approvalStatus = approvalStatus;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmailId() {
+		return emailId;
+	}
+	public void setEmailId(String emailId) {
+		this.emailId = emailId;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //package com.cg.capbook.beans;
 //import java.util.Map;
 //

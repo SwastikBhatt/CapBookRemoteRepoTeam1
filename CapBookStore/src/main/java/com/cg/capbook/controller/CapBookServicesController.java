@@ -21,6 +21,7 @@ import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
 import com.cg.capbook.exceptions.LoggedOutException;
+import com.cg.capbook.exceptions.NoFriendRequestReceivedException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 import com.cg.capbook.services.CapBookServices;
 
@@ -159,4 +160,37 @@ public class CapBookServicesController {
 		Account account=services.uploadStatusPro(userBio);
 		return new ModelAndView("loginSuccess","account",account);
 	}
+	@RequestMapping("/viewAllPosts")
+	public ModelAndView viewAllPostsProfile() {
+		return new ModelAndView("loginSuccess","posts",services.viewAllPost());
+	}
+	
+@RequestMapping("/sendRequest")
+	public ModelAndView sendRequestToAFriend(@RequestParam String emailIdTo) throws AccountNotFoundException, LoggedOutException {
+		return new ModelAndView("sendFriendRequest", "successMessage", services.sendRequest(services.getSessionEmailId(),emailIdTo));
+	}
+	
+	@RequestMapping("/viewPendingReq")
+	public ModelAndView viewPendingReq() throws AccountNotFoundException, NoFriendRequestReceivedException{
+		return new ModelAndView("viewAndApprove", "pendingFriends", services.viewPendingRequestList());
+	}
+	
+	@RequestMapping("/acceptPendingReq")
+	public ModelAndView acceptPendingReq(@RequestParam String emailIdTo) throws AccountNotFoundException, LoggedOutException   {
+		return new ModelAndView("viewAndApprove", "a_status",services.acceptRequest(services.getSessionEmailId(),emailIdTo));
+	}
+	
+	
+	@RequestMapping("/rejectPendingReq")
+	public ModelAndView rejectPendingReq(@RequestParam String emailIdTo) throws AccountNotFoundException, LoggedOutException   {
+		return new ModelAndView("viewAndApprove", "r_status",services.rejectRequest(services.getSessionEmailId(),emailIdTo));
+	}
+	
+	@RequestMapping("/viewFriendList")
+	public ModelAndView viewFriendListOfAUser() throws AccountNotFoundException  {
+		return new ModelAndView("viewAndApprove","friends",services.viewFriendList());
+	}
+	
+	
+	
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cg.capbook.beans.Account;
+import com.cg.capbook.beans.Friend;
 import com.cg.capbook.beans.Post;
 import com.cg.capbook.exceptions.AccountExistingException;
 import com.cg.capbook.exceptions.AccountNotFoundException;
@@ -13,6 +14,7 @@ import com.cg.capbook.exceptions.ChangePasswordException;
 import com.cg.capbook.exceptions.CheckPasswordException;
 import com.cg.capbook.exceptions.CheckSecurityQandA;
 import com.cg.capbook.exceptions.LoggedOutException;
+import com.cg.capbook.exceptions.NoFriendRequestReceivedException;
 import com.cg.capbook.exceptions.SecurityProfileQandAException;
 
 public interface CapBookServices {
@@ -40,6 +42,12 @@ public interface CapBookServices {
 	public List<Account> searchAllUsersByName(String userName) throws AccountNotFoundException;
 	public List<Account> birthdayAll() throws AccountNotFoundException;
 	public Account uploadStatusPro(String userBio) throws AccountNotFoundException;
+	public List<Post> viewAllPost();
+	public List<Friend> viewFriendList() throws AccountNotFoundException;
+	public List<Friend> viewPendingRequestList()throws AccountNotFoundException,NoFriendRequestReceivedException;
+	public boolean rejectRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException;
+	public boolean acceptRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException;
+	public String sendRequest(String emailIdFrom, String emailIdTo) throws AccountNotFoundException;
 }
 
 

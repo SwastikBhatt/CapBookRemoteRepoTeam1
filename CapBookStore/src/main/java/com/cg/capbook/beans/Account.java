@@ -1,15 +1,14 @@
 package com.cg.capbook.beans;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 
@@ -40,6 +39,13 @@ public class Account {
 	private String designation;
 	private String relationshipStatus;
 
+	@ElementCollection
+	private List<Friend> friendList = new ArrayList<Friend>();
+	@ElementCollection
+	private List<Friend> pendingList = new ArrayList<Friend>();
+	
+	
+	
 //	
 //	@ManyToMany(mappedBy = "accounts",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 //	@JoinTable(name = "account_friend",joinColumns = { @JoinColumn(name="emailId")},inverseJoinColumns = { @JoinColumn(name = "friendId") })
@@ -206,6 +212,22 @@ public class Account {
 //	public void setFriends(Map<Integer, Friend> friends) {
 //		this.friends = friends;
 //	}
+
+	public List<Friend> getFriendList() {
+		return friendList;
+	}
+
+	public void setFriendList(List<Friend> friendList) {
+		this.friendList = friendList;
+	}
+
+	public List<Friend> getPendingList() {
+		return pendingList;
+	}
+
+	public void setPendingList(List<Friend> pendingList) {
+		this.pendingList = pendingList;
+	}
 
 	public String getEmailId() {
 		return emailId;

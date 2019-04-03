@@ -42,5 +42,33 @@ public class URIController {
 	public String albumPage() {
 		return "imageAlbum";
 	}
+	@RequestMapping("/loginSuccessPage")
+	public String loginSuccessPage() {
+		return "loginSuccess";
+	}
 
+	
+	
+	
+	
+
+
+
+	@RequestMapping("/sendReq")
+	public String sendFriendRequest() {
+		return "sendFriendRequest";
+	}
+	
+	@RequestMapping("/viewApprove")
+	public String viewApproveRequest() {
+		return "viewAndApprove";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 }

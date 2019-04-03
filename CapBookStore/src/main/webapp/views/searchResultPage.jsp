@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
@@ -107,8 +107,120 @@ body {
 			</c:forEach>
 		</table>
 	</div>
+</body>
+</html> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<!DOCTYPE HTML>
+<html>
+<head>
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+}
 
+.bg {
+  /* The image used */
+   background-image: url( "bgimages/b.jpg"); 
+  /* Full height */
+  height: 170%; 
 
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+<title>Search</title>
+<!-- Meta-Tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<script>
+		addEventListener("load", function () {
+			setTimeout(hideURLbar, 0);
+		}, false);
 
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+<!-- //Meta-Tags -->
+<!-- Stylesheets -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<!--// Stylesheets -->
+<!--fonts-->
+<link
+	href="//fonts.googleapis.com/css?family=Poiret+One&amp;subset=cyrillic,latin-ext"
+	rel="stylesheet">
+<!--//fonts-->
+
+</head>
+
+<body>
+<div class="bg">
+	<h1>Capbook. Connecting Executives</h1>
+	<h1>Search Profiles</h1>
+	<div align="center" class="error">
+		<font size="20" color="red"><b>${errorMessage}</b></font>
+	</div>
+	<div class="agile-field-txt">
+			        <form action="searchAccounts" method="get">
+				      <input type="text" placeholder="Search.." name="firstName">
+				       <input type="submit" value="Search">
+		        </div>
+	      
+		  
+		  <div align="center">
+		<table>
+			<tr>
+			<p style="color:white;" style="font-size:200px;">
+				<th><font color="white" size="10"><b>Employee ID &nbsp&nbsp</b></font></th>
+				<th><font color="white" size="10"><b>First Name &nbsp&nbsp</b></font></th>
+				<th><font color="white" size="10"><b>Last Name &nbsp&nbsp</b></font></th>
+				<th><font color="white" size="10"><b>Email ID &nbsp&nbsp</b></font></th>
+				
+			
+			
+			</p>
+			</tr>
+			<p style="color:white;" style="font-size:200px;">
+			<c:forEach var="associates" items="${accounts}">
+				<tr >
+					<th><font color="white" size="10"><b>${associates.employeeId} &nbsp&nbsp</b></font></th>
+					<th><font color="white" size="10"><b>${associates.firstName} &nbsp&nbsp</b></font></th>
+					<th><font color="white" size="10"><b>${associates.lastName} &nbsp&nbsp</b></font></th>
+					<th><font color="white" size="10"><b>${associates.emailId} &nbsp&nbsp</b></font></th>
+					<%-- <th>
+		<div class="agile_label">
+	                   <form action="myProfile" method="get">
+						<input type="submit" value="My Profile">
+	                   </form>
+					</th> --%>
+				</tr>
+				</p>
+			</c:forEach>
+		</table>
+		</form>
+	   </div>
+	   </div>
+
+	<div class="w3ls-login box box--big">	
+			<div class="topnav" align="center">
+		      
+                
+	
+	<!-- //form ends here -->
+	<!--copyright-->
+	<div class="copy-wthree">
+		<p>
+			© 2019 Registration Form . All Rights Reserved | <a
+				href="http://capgemini.com/" target="_blank">Capgemini</a>
+		</p>
+	</div>
+	<!--//copyright-->
+</div>
+</div>
+</div>
 </body>
 </html>
